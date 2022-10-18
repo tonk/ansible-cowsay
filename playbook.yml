@@ -1,0 +1,22 @@
+
+- name: lets go
+  hosts: localhost
+  become: false
+  connection: local
+
+  vars:
+    title: Member of the AAP Cluster
+    func: Ansible AAP Control node
+    loc: Groesbeek
+    vmname: EXDEBENE01
+
+  tasks:
+    - name: get cowsay
+      cowsay:
+        text: "{{ title }}"
+      register: cowsaid
+
+    - name: do template
+      template:
+        src: motd.j2
+        dest: /tmp/motd

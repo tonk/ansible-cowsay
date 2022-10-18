@@ -1,0 +1,14 @@
+{% set ns = namespace(l=15) %}
+{% for line in cowsaid['message'] %}
+{% set ns.l = [ns.l, line | length, 15] | max %}
+{% endfor %}
+
+  {{ "{1:<{0}}".format(ns.l+2, cowsaid['message'][0]) }}
+  {{ "{1:<{0}}".format(ns.l+2, cowsaid['message'][1]) }} | Host name   : {{ ansible_facts['hostname'] }}
+  {{ "{1:<{0}}".format(ns.l+2, cowsaid['message'][2]) }} | Host alias  : {{ inventory_hostname }}
+  {{ "{1:<{0}}".format(ns.l+2, cowsaid['message'][3]) }} | Function    : {{ func }}
+  {{ "{1:<{0}}".format(ns.l+2, cowsaid['message'][4]) }} | Location    : {{ loc }}
+  {{ "{1:<{0}}".format(ns.l+2, cowsaid['message'][5]) }} | IP address  : {{ ansible_facts['default_ipv4']['address'] }}
+  {{ "{1:<{0}}".format(ns.l+2, cowsaid['message'][6]) }} | VMware name : {{ vmname }}
+  {{ "{1:<{0}}".format(ns.l+2, cowsaid['message'][7]) }}
+
