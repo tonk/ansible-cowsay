@@ -1,3 +1,18 @@
+{#
+
+This template creates a motd file with contents like below.
+
+   ___________________________
+  < Member of the AAP Cluster >      | Host name   : thor
+   ---------------------------       | Host alias  : cn01
+              \   ^__^               | Function    : Ansible AAP Control node
+               \  (oo)\_______       | Location    : Amsterdam
+                  (__)\       )\/\   | IP address  : 192.168.63.194
+                      ||----w |      | VMware name : EXDTONKE01
+                      ||     ||
+
+#}
+
 {% set ns = namespace(l=15) %}
 {% for line in cowsaid['message'] %}
 {% set ns.l = [ns.l, line | length, 15] | max %}
@@ -5,10 +20,10 @@
 
   {{ "{1:<{0}}".format(ns.l+2, cowsaid['message'][0]) }}
   {{ "{1:<{0}}".format(ns.l+2, cowsaid['message'][1]) }} | Host name   : {{ ansible_facts['hostname'] }}
-  {{ "{1:<{0}}".format(ns.l+2, cowsaid['message'][2]) }} | Host alias  : {{ inventory_hostname }}
-  {{ "{1:<{0}}".format(ns.l+2, cowsaid['message'][3]) }} | Function    : {{ func }}
-  {{ "{1:<{0}}".format(ns.l+2, cowsaid['message'][4]) }} | Location    : {{ loc }}
+  {{ "{1:<{0}}".format(ns.l+2, cowsaid['message'][2]) }} | Host alias  : {{ motd_alias | default(inventory_hostname) }}
+  {{ "{1:<{0}}".format(ns.l+2, cowsaid['message'][3]) }} | Function    : {{ motd_func }}
+  {{ "{1:<{0}}".format(ns.l+2, cowsaid['message'][4]) }} | Location    : {{ motd_location }}
   {{ "{1:<{0}}".format(ns.l+2, cowsaid['message'][5]) }} | IP address  : {{ ansible_facts['default_ipv4']['address'] }}
-  {{ "{1:<{0}}".format(ns.l+2, cowsaid['message'][6]) }} | VMware name : {{ vmname }}
+  {{ "{1:<{0}}".format(ns.l+2, cowsaid['message'][6]) }} | VMware name : {{ motd_vmname }}
   {{ "{1:<{0}}".format(ns.l+2, cowsaid['message'][7]) }}
 

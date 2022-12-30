@@ -1,20 +1,22 @@
-
+---
 - name: lets go
   hosts: localhost
   become: false
   connection: local
 
   vars:
-    title: Member of the AAP Cluster
-    func: Ansible AAP Control node
-    loc: Groesbeek
-    vmname: EXDEBENE01
+    motd_title: The bestest Mmhoo
+    motd_alias: cn01
+    motd_func: Ansible AAP Control node
+    motd_location: Amsterdam
+    motd_vmname: EXDTONKE01
 
   tasks:
     - name: get cowsay
       cowsay:
-        text: "{{ title }}"
+        text: "{{ motd_title }}"
       register: cowsaid
+      delegate_to: localhost
 
     - name: do template
       template:

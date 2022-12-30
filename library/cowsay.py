@@ -25,7 +25,7 @@ from ansible.module_utils._text import to_native
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.six.moves.urllib.error import HTTPError, URLError
 
-ANSIBLE_METADATA = {'metadata_version': '0.1',
+ANSIBLE_METADATA = {'metadata_version': '0.2',
                     'status': ['preview'],
                     'supported_by': 'community'}
 
@@ -150,11 +150,11 @@ def run_module():
         supports_check_mode=True
     )
 
-    # If the user is working with this module in only check mode we do not
-    # want to make any changes to the environment, just return the current
-    # state with no modifications
+    # If the user is working with this module in only check mode, just a
+    # warning is issued. As this module doesn't change anything, this doesn't
+    # matter.
     if module.check_mode:
-        module.exit_json(**result)
+        result['warnings'] = "Module 'cowsay' is running in 'check' mode"
 
     # Get all API settings
     text = module.params['text']
