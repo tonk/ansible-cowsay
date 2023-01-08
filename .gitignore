@@ -1,3 +1,4 @@
 ansible.cfg
 cowsay.yml
 inventory
+__pycache__
